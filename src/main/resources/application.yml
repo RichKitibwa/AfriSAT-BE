@@ -1,0 +1,36 @@
+server:
+  port: 8081
+  shutdown: graceful
+
+spring:
+  application:
+    name: afrisat
+    version: v1
+  datasource:
+    username: postgres
+    password:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5434}/${DB_NAME:local}?currentSchema=${DB_SCHEMA:users}
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5434}/${DB_NAME:local}?currentSchema=${DB_SCHEMA:users}
+    user: postgres
+    password:
+    locations: classpath:db/migration
+    fail-on-missing-locations: true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    database: postgresql
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY:n3Isk0a9rvmBMOzwQfEv58/hKwam1//8eKmVvjRPZWY=}
+
+# Logging
+logging:
+  level:
+    root: ${LOG_LEVEL:INFO}
