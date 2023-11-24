@@ -19,5 +19,6 @@ public class AuthResponse {
     private String phoneNumber;
     private String country;
     private String token;
+    private String role;
     private Date expiresAt;
 }

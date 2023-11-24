@@ -1,5 +1,6 @@
 package com.rich.AfriSAT.service;
 
+import com.rich.AfriSAT.Exceptions.UserAlreadyExistsException;
 import com.rich.AfriSAT.Repository.UserRepository;
 import com.rich.AfriSAT.model.User;
 import com.rich.AfriSAT.user.CustomUserDetails;
@@ -23,6 +24,9 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public User createUser(RegistrationRequest request) {
+        if (userRepository.findByUsername(request.getEmail()).isPresent()) {
+            throw new UserAlreadyExistsException(String.format("User with username %s  already exists", request.getEmail()));
+        }
 
         User user = new User();
         user.setUsername(request.getUsername());
@@ -35,7 +39,7 @@ public class UserService implements UserDetailsService {
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
+        User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
         return CustomUserDetails.builder()
@@ -45,6 +49,7 @@ public class UserService implements UserDetailsService {
                 .userId(user.getUser_id())
                 .phoneNumber(user.getPhoneNumber())
                 .country(user.getCountry())
+                .role(user.getRole())
                 .build();
     }
 }

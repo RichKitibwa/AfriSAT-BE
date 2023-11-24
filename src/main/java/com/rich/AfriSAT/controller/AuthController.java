@@ -37,7 +37,7 @@ public class AuthController {
     public ResponseEntity<?> signup(@RequestBody @Valid RegistrationRequest request) {
 
         userService.createUser(request);
-        CustomUserDetails userDetails = (CustomUserDetails) userService.loadUserByUsername(request.getUsername());
+        CustomUserDetails userDetails = (CustomUserDetails) userService.loadUserByUsername(request.getEmail());
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -73,6 +73,7 @@ public class AuthController {
                 .phoneNumber(userDetails.getPhoneNumber())
                 .country(userDetails.getCountry())
                 .token(token)
+                .role(userDetails.getRole())
                 .expiresAt(tokenExpiration)
                 .build();
     }

@@ -1,5 +1,6 @@
 package com.rich.AfriSAT.user;
 
+import com.rich.AfriSAT.model.Role;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,7 @@ public class CustomUserDetails implements UserDetails {
     private String email;
     private String country;
     private String phoneNumber;
+    private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

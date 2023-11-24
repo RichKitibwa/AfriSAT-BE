@@ -35,6 +35,7 @@ public class User {
 
     @Column(nullable = false)
     private Date dateCreated;
+    private String role = "CLIENT";
 
     @PrePersist
     protected void onCreate() {

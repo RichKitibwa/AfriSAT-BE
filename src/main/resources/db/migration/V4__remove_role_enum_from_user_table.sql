@@ -1,0 +1,2 @@
+ALTER TABLE users."user"
+ALTER COLUMN role TYPE VARCHAR;

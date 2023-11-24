@@ -1,5 +1,6 @@
 package com.rich.AfriSAT.config;
 
+import com.rich.AfriSAT.model.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -65,6 +66,7 @@ public class SecurityConfig {
                 .cors().and()
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers(AUTH_WHITELIST).permitAll()
+                        .requestMatchers("/admin/**").hasRole(Role.ADMIN.toString())
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
