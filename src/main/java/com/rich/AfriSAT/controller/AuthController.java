@@ -37,7 +37,7 @@ public class AuthController {
     public ResponseEntity<?> signup(@RequestBody @Valid RegistrationRequest request) {
 
         userService.createUser(request);
-        CustomUserDetails userDetails = (CustomUserDetails) userService.loadUserByUsername(request.getEmail());
+        CustomUserDetails userDetails = (CustomUserDetails) userService.loadUserByUsername(request.getUsername());
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authentication);

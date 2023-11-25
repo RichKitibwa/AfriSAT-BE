@@ -1,5 +1,6 @@
 package com.rich.AfriSAT.model;
 
+import com.rich.AfriSAT.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.util.UUID;
 @Entity
 @Builder
 @Table(name="activation_code", schema="users")
-public class ActivationCode {
+public class ActivationCode extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -21,7 +22,7 @@ public class ActivationCode {
     private Integer duration;
     private Double cost;
     @Enumerated(EnumType.STRING)
-    private ActivationCodeStatus status;
+    private ActivationCodeStatus status = ActivationCodeStatus.NOT_ACTIVE;
     private String assignedDecoderId;
 
     @ManyToOne

@@ -24,8 +24,8 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public User createUser(RegistrationRequest request) {
-        if (userRepository.findByUsername(request.getEmail()).isPresent()) {
-            throw new UserAlreadyExistsException(String.format("User with username %s  already exists", request.getEmail()));
+        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
+            throw new UserAlreadyExistsException(String.format("User with username %s  already exists", request.getUsername()));
         }
 
         User user = new User();
@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username)
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
         return CustomUserDetails.builder()

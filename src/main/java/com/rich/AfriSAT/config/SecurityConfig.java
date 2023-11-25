@@ -66,7 +66,6 @@ public class SecurityConfig {
                 .cors().and()
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers(AUTH_WHITELIST).permitAll()
-                        .requestMatchers("/admin/**").hasRole(Role.ADMIN.toString())
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()

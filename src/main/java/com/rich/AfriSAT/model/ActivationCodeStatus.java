@@ -1,5 +1,5 @@
 package com.rich.AfriSAT.model;
 
 public enum ActivationCodeStatus {
-    ACTIVE, NOT_ACTIVE
+    ACTIVE, NOT_ACTIVE, EXPIRED
 }
