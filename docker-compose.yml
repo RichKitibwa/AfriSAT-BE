@@ -5,7 +5,7 @@ services:
       - POSTGRES_DB=local
       - POSTGRES_USER=postgres
       - POSTGRES_HOST_AUTH_METHOD=trust
-    container_name: afrisat
+    container_name: afrisat-db
     restart: always
     command:
       - "postgres"
@@ -19,3 +19,17 @@ services:
       - "max_replication_slots=4"
     ports:
       - "5434:5432"
+
+  afrisat-be:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_HOST=afrisat-db
+      - DB_PORT=5432
+      - DB_NAME=local
+      - DB_SCHEMA=users
+      - JWT_SECRET_KEY=n3Isk0a9rvmBMOzwQfEv58/hKwam1//8eKmVvjRPZWY=
+      - LOG_LEVEL=INFO
+    depends_on:
+      - postgres

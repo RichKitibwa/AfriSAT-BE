@@ -9,11 +9,11 @@ spring:
   datasource:
     username: postgres
     password:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5434}/${DB_NAME:local}?currentSchema=${DB_SCHEMA:users}
+    url: jdbc:postgresql://afrisat-db:5432/local?currentSchema=users
     driver-class-name: org.postgresql.Driver
   flyway:
     enabled: true
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5434}/${DB_NAME:local}?currentSchema=${DB_SCHEMA:users}
+    url: jdbc:postgresql://afrisat-db:5432/local?currentSchema=users
     user: postgres
     password:
     locations: classpath:db/migration
