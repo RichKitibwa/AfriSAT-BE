@@ -19,7 +19,7 @@ public class ActivationCode extends Auditable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID code_id;
     private String code;
-    private Integer duration;
+    private String duration;
     private Double cost;
     @Enumerated(EnumType.STRING)
     private ActivationCodeStatus status = ActivationCodeStatus.NOT_ACTIVE;

@@ -2,14 +2,13 @@ package com.rich.AfriSAT.service;
 
 import com.rich.AfriSAT.Repository.ActivationCodeRepository;
 import com.rich.AfriSAT.Repository.UserRepository;
-import com.rich.AfriSAT.model.ActivationCode;
-import com.rich.AfriSAT.model.ActivationCodeDTO;
-import com.rich.AfriSAT.model.ActivationCodeStatus;
-import com.rich.AfriSAT.model.User;
+import com.rich.AfriSAT.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ActivationCodeService {
@@ -37,5 +36,19 @@ public class ActivationCodeService {
                 .status(ActivationCodeStatus.NOT_ACTIVE)
                 .build();
         return activationCodeRepository.save(activationCode);
+    }
+
+    public List<ActivationCodeViewDTO> findAllActivationCodes() {
+        return activationCodeRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    private ActivationCodeViewDTO convertToDTO(ActivationCode activationCode) {
+        ActivationCodeViewDTO dto = new ActivationCodeViewDTO();
+        dto.setCode(activationCode.getCode());
+        dto.setDuration(activationCode.getDuration());
+        dto.setCost(activationCode.getCost());
+        dto.setAssignedDecoderId(activationCode.getAssignedDecoderId());
+        dto.setStatus(activationCode.getStatus());
+        return dto;
     }
 }

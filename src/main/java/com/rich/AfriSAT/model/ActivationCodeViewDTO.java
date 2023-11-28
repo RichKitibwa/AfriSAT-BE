@@ -9,10 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ActivationCodeDTO {
+public class ActivationCodeViewDTO {
+
     private String code;
     private String duration;
     private Double cost;
     private String assignedDecoderId;
-
+    private ActivationCodeStatus status;
 }

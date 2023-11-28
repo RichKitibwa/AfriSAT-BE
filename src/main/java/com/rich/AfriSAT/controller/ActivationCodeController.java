@@ -2,17 +2,16 @@ package com.rich.AfriSAT.controller;
 
 import com.rich.AfriSAT.model.ActivationCode;
 import com.rich.AfriSAT.model.ActivationCodeDTO;
+import com.rich.AfriSAT.model.ActivationCodeViewDTO;
 import com.rich.AfriSAT.service.ActivationCodeService;
 import com.rich.AfriSAT.user.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -35,5 +34,11 @@ public class ActivationCodeController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
+    }
+
+    @GetMapping("/all-codes")
+    public ResponseEntity<List<ActivationCodeViewDTO>> getAllActivationCodes() {
+        List<ActivationCodeViewDTO> codes = activationCodeService.findAllActivationCodes();
+        return ResponseEntity.ok(codes);
     }
 }
