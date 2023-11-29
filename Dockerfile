@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy the Gradle configuration files
 COPY gradlew .
 COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
 
 # Grant execution permissions on the Gradle wrapper
 RUN chmod +x ./gradlew
