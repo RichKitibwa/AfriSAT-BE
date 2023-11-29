@@ -7,15 +7,15 @@ spring:
     name: afrisat
     version: v1
   datasource:
-    username: postgres
-    password:
-    url: jdbc:postgresql://afrisat-db:5432/local?currentSchema=users
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?currentSchema=${DB_SCHEMA}
     driver-class-name: org.postgresql.Driver
   flyway:
     enabled: true
-    url: jdbc:postgresql://afrisat-db:5432/local?currentSchema=users
-    user: postgres
-    password:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?currentSchema=${DB_SCHEMA}
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
     locations: classpath:db/migration
     fail-on-missing-locations: true
   jpa:

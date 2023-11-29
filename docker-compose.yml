@@ -29,6 +29,8 @@ services:
       - DB_PORT=5432
       - DB_NAME=local
       - DB_SCHEMA=users
+      - DB_USER=postgres
+      - DB_PASSWORD=
       - JWT_SECRET_KEY=n3Isk0a9rvmBMOzwQfEv58/hKwam1//8eKmVvjRPZWY=
       - LOG_LEVEL=INFO
     depends_on:
