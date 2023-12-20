@@ -46,7 +46,7 @@ public class UserService implements UserDetailsService {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .password(user.getPassword())
-                .userId(user.getUser_id())
+                .userId(user.getUserId())
                 .phoneNumber(user.getPhoneNumber())
                 .country(user.getCountry())
                 .role(user.getRole())

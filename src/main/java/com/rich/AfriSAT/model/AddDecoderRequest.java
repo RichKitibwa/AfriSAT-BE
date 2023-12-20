@@ -9,10 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ActivationCodeDTO {
-    private String code;
-    private String duration;
-    private Double cost;
-    private String decoderId;
-
+public class AddDecoderRequest {
+    private String decoderNumber;
 }

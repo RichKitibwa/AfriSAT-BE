@@ -1,6 +1,7 @@
 package com.rich.AfriSAT.service;
 
 import com.rich.AfriSAT.Repository.ActivationCodeRepository;
+import com.rich.AfriSAT.Repository.DecoderRepository;
 import com.rich.AfriSAT.Repository.UserRepository;
 import com.rich.AfriSAT.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ public class ActivationCodeService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private DecoderRepository decoderRepository;
+
     public ActivationCode addActivationCode(ActivationCodeDTO activationCodeDTO, UUID adminUserId) {
 
         if (activationCodeRepository.findByCode(activationCodeDTO.getCode()).isPresent()) {
@@ -27,11 +32,17 @@ public class ActivationCodeService {
         User adminUser = userRepository.findById(adminUserId)
                 .orElseThrow(() -> new RuntimeException("Admin user not found"));
 
+        Decoder assignedDecoder = null;
+        if (activationCodeDTO.getDecoderId() != null && !activationCodeDTO.getDecoderId().isEmpty()) {
+            assignedDecoder = decoderRepository.findById(UUID.fromString(activationCodeDTO.getDecoderId()))
+                    .orElseThrow(() -> new RuntimeException("Decoder not found"));
+        }
+
         ActivationCode activationCode = ActivationCode.builder()
                 .code(activationCodeDTO.getCode())
                 .duration(activationCodeDTO.getDuration())
                 .cost(activationCodeDTO.getCost())
-                .assignedDecoderId(activationCodeDTO.getAssignedDecoderId())
+                .assignedDecoder(assignedDecoder)
                 .user(adminUser)
                 .status(ActivationCodeStatus.NOT_ACTIVE)
                 .build();
@@ -47,7 +58,11 @@ public class ActivationCodeService {
         dto.setCode(activationCode.getCode());
         dto.setDuration(activationCode.getDuration());
         dto.setCost(activationCode.getCost());
-        dto.setAssignedDecoderId(activationCode.getAssignedDecoderId());
+        if (activationCode.getAssignedDecoder() != null) {
+            dto.setAssignedDecoderId(activationCode.getAssignedDecoder().getDecoderId().toString());
+        } else {
+            dto.setAssignedDecoderId(null);
+        }
         dto.setStatus(activationCode.getStatus());
         return dto;
     }

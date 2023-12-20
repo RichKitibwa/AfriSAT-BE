@@ -23,7 +23,10 @@ public class ActivationCode extends Auditable {
     private Double cost;
     @Enumerated(EnumType.STRING)
     private ActivationCodeStatus status = ActivationCodeStatus.NOT_ACTIVE;
-    private String assignedDecoderId;
+
+    @ManyToOne
+    @JoinColumn(name="decoder_id")
+    private Decoder assignedDecoder;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
