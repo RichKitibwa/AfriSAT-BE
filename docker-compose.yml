@@ -2,8 +2,9 @@ services:
   postgres:
     image: postgres:13-alpine
     environment:
-      - POSTGRES_DB=local
-      - POSTGRES_USER=postgres
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_HOST_AUTH_METHOD=trust
     container_name: afrisat-db
     restart: always
@@ -25,12 +26,12 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - DB_HOST=afrisat-db
-      - DB_PORT=5432
-      - DB_NAME=local
-      - DB_SCHEMA=users
-      - DB_USER=postgres
-      - DB_PASSWORD=
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_SCHEMA=${DB_SCHEMA}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
       - JWT_SECRET_KEY=n3Isk0a9rvmBMOzwQfEv58/hKwam1//8eKmVvjRPZWY=
       - LOG_LEVEL=INFO
     depends_on:
